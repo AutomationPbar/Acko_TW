@@ -38,7 +38,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Test;
 
-import pom.Ackoelements;
+import pom.AckoelementsTW;
 
 public class GetVariants {
 
@@ -79,7 +79,7 @@ public class GetVariants {
 			
 			FileInputStream fis = new FileInputStream(excelpath);
 			workbook = new XSSFWorkbook(fis);
-			modelsheet = workbook.getSheetAt(0);
+			modelsheet = workbook.getSheetAt(3);
 
 			
 			SimpleDateFormat formatter = new SimpleDateFormat("dd_MM_yyyy_HH_mm");
@@ -112,17 +112,18 @@ public class GetVariants {
 		String make = row.getCell(0).getStringCellValue();
 		
 		String model = row.getCell(1).getStringCellValue();
+		model = model.substring(0,1).toUpperCase();
 		make = make+" "+model;
 		System.out.println("the make is " + make);
-		pom.Ackoelements.selectbike(driver).click();
+		pom.AckoelementsTW.selectbike(driver).click();
 		Thread.sleep(4000);
-		pom.Ackoelements.selectbikeinput(driver).sendKeys(make);
+		pom.AckoelementsTW.selectbikeinput(driver).sendKeys(make);
 		Thread.sleep(2000);
-		int size = pom.Ackoelements.variants(driver).size();
+		int size = pom.AckoelementsTW.variants(driver).size();
 		System.out.println("size of models is " + size);
 		for(int j=1;j<=size;j++){
 			
-			makemodelv=pom.Ackoelements.selectbikeoption(driver, j).getText();
+			makemodelv=pom.AckoelementsTW.selectbikeoption(driver, j).getText();
 			Thread.sleep(2000);
 			System.out.println("The make model variant is " + makemodelv);
 			resultdata[0]=make;
